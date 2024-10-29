@@ -5,7 +5,7 @@ class Game
     @current_winner = false
   end
   
-  def make_board
+  def to_s
     x = 0
     board = "---+---+---\n"
     for i in 0..2
