@@ -1,0 +1,1 @@
+{"turns":7,"word":"symbols","feedback":["_","_","_","_","_","_","_"],"word_array":["s","y","m","b","o","l","s"],"incorrect_letters":[]}
