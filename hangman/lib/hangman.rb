@@ -24,7 +24,7 @@ class Hangman
     choice = gets.chomp.upcase
 
     if choice.downcase == 'l'
-      print 'Enter filename(with file extenstion): '
+      print "\nEnter filename(with file extenstion): "
       filename = gets.chomp
       file = LoadSave.new("./save/#{filename}")
       if file.file_exists
@@ -36,10 +36,10 @@ class Hangman
         self.word = file[:word]
         File.delete("./save/#{filename}")
       else
-        puts 'File does not exit! NEW GAME WILL START'
+        puts "\nFile does not exit! NEW GAME WILL START"
       end
     end
-    puts 'IF YOU WANT TO SAVE CURRENT GAME, ENTER A YES'
+    puts "\nIF YOU WANT TO SAVE CURRENT GAME, ENTER A YES"
     loop do
       print "\nENTER GUESS: "
       guess = gets.chomp.downcase

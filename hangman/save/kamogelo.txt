@@ -1,1 +1,1 @@
-{"turns":7,"word":"symbols","feedback":["_","_","_","_","_","_","_"],"word_array":["s","y","m","b","o","l","s"],"incorrect_letters":[]}
+{"turns":5,"word":"designed","feedback":["_","e","_","_","_","_","e","_"],"word_array":["d","_","s","i","g","n","_","d"],"incorrect_letters":["q","f"]}
