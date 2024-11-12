@@ -1,37 +1,49 @@
 class MasterMind
-  @@colors = ["Red", "Blue", "Green", "Yellow", "Pink", "Purple"]
-  
-  def play_game(secret_code, guess)
-    rounds = 1
-    while rounds > 0 do  
-      guess_array = guess
+  attr_accessor :round, :guess, :secret_code, :feedback
+  def initialize
+   @round = 12
+   @guess = []
+   @secret_code = []
+   @feedback ={red: 0, white: 0}
+  end
 
-      if secret_code == guess_array
-        return "You guessed the correct code"
-      end
-      feedback = []
-      index = []
-      secret_code.each_with_index do |i, i_index|
-        guess_array.each_with_index do |j, j_index|
-          if i_index == j_index && i == j
-            feedback.push("red")
-            index.push(j_index)
-          
-          elsif !index.include?(j_index) && secret_code.include?(j)
-            feedback.push("white")
-            index.push(j_index)
-          end
-        end
-      end
+  def playgame
+    self.secret_code = ComputerPlayer.new.codemaker
+    @round.times do
+      self.guess = HumanPlayer.new.codebreaker
 
-      rounds -= 1
-      puts feedback.join(", ")
-      p index
+      return "You guessed the secret code #{self.secret_code}" if self.secret_code == self.guess
+
+      self.feedback[:red] = self.exact
+      self.feedback[:white] = self.contains
+      p self.feedback
     end
+    "YOU LOSE: #{self.secret_code}"
+  end
+
+  def exact
+    same = 0
+    self.guess.each_with_index do |item, index|
+      next if item != self.secret_code[index]
+      same += 1
+      self.guess[index] = "*"
+    end
+    same
+  end
+
+  def contains
+    contain = 0
+
+    self.guess.each_with_index do |item, index|
+      next if !self.secret_code.include?(item)
+
+      contain += 1
+      self.guess[index] = "?"
+    end
+    contain
   end
 end
 
 
-game = MasterMind.new
 
-puts game.play_game(["red", "blue", "black", "green"], ["red", "green", "black", "blue"])
+
