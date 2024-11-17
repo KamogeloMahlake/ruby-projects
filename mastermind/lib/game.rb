@@ -1,47 +1,66 @@
 class MasterMind
-  attr_accessor :round, :guess, :secret_code, :code_copy
+  attr_accessor :round, :guess, :secret_code, :code_copy, :clone_computer_code, :feedback, :player_guess_copy
   def initialize
    @round = 12
    @guess = []
    @secret_code = []
    @code_copy = []
+   @clone_computer_code = []
+   @feedback = {red: 0, white: 0}
+   @player_guess_copy = []
+   @human_player  = HumanPlayer.new
+   @computer_player = ComputerPlayer.new
   end
 
   def playgame
     display = Display.new
     choice = Player.new.choosing_player
     if choice
-      self.secret_code = HumanPlayer.new.codemaker
+      self.secret_code = HumanPlayer.new.codebreaker
     else
       self.secret_code = ComputerPlayer.new.codemaker
     end
-    @round.times do
-      self.code_copy = self.secret_code.map(&:clone)
-      self.guess = choice ? ComputerPlayer.new.codebreaker : HumanPlayer.new.codebreaker
+    
 
-      return "You guessed the secret code #{display.code_colors(self.secret_code)}" if self.secret_code == self.guess
-      print "YOUR GUESS: #{display.code_colors(self.guess)}   "
-      self.exact
-      self.contains
-      print "FEEDBACK: #{display.clues(self.guess)}"
+    @round.times do
+      count = feedback.values.inject {|red, white| red + white}
+      self.code_copy = self.secret_code.map(&:clone)
+      self.guess = choice ? @computer_player.codebreaker(self.clone_computer_code, count) : @human_player.codebreaker
+      
+      return "\nYou guessed the secret code #{display.code_colors(self.secret_code)}" if self.secret_code == self.guess
+      self.clone_computer_code = choice ? self.guess.map(&:clone) : []
+      self.player_guess_copy = !choice ? self.guess.map(&:clone) : false
+
+      self.feedback = {red: self.exact, white: self.contains}
+      print "\nYOUR GUESS: #{display.code_colors(self.player_guess_copy || self.clone_computer_code)}   "
+
+      
+      print "\nFEEDBACK: #{display.clues(self.guess)}"
+      sleep 1
 
     end
-    "YOU LOSE: #{display.code_colors(self.secret_code)}"
+    "\nYOU LOSE: #{display.code_colors(self.secret_code)}"
   end
 
   def exact
+    same = 0
     self.guess.each_with_index do |item, index|
       next if item != self.code_copy[index]
       self.guess[index] = "*"
       self.code_copy[index] = "*"
+      same += 1
     end
+    same
   end
 
   def contains
+    contain = 0
     self.guess.each_with_index do |item, index|
       next unless self.guess[index] != '*' && self.code_copy.include?(item)
       self.guess[index] = "?"
       self.code_copy[self.code_copy.find_index(item)] = "?"
+      contain += 1
     end
+    contain
   end
 end
