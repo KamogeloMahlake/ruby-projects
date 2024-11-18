@@ -1,5 +1,5 @@
 class HumanPlayer
-  def codebreaker
+  def enter_code
     loop do
       print "\nENTER CODE: "
       guess = gets.chomp.split("")

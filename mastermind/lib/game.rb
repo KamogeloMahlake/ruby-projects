@@ -11,22 +11,24 @@ class MasterMind
    @human_player  = HumanPlayer.new
    @computer_player = ComputerPlayer.new
   end
-
+  
+  def human_solver
+    @human_player.enter_code
+  end
+  
   def playgame
     display = Display.new
     choice = Player.new.choosing_player
     if choice
-      self.secret_code = HumanPlayer.new.codebreaker
+      self.secret_code = self.human_solver
     else
-      self.secret_code = ComputerPlayer.new.codemaker
+      self.secret_code = @computer_player.codemaker
     end
     
-
     @round.times do
       count = feedback.values.inject {|red, white| red + white}
       self.code_copy = self.secret_code.map(&:clone)
-      self.guess = choice ? @computer_player.codebreaker(self.clone_computer_code, count) : @human_player.codebreaker
-      
+      self.guess = choice ? @computer_player.codebreaker(self.clone_computer_code, count) : self.human_solver
       return "\nYou guessed the secret code #{display.code_colors(self.secret_code)}" if self.secret_code == self.guess
       self.clone_computer_code = choice ? self.guess.map(&:clone) : []
       self.player_guess_copy = !choice ? self.guess.map(&:clone) : false
@@ -39,7 +41,7 @@ class MasterMind
       sleep 1
 
     end
-    "\nYOU LOSE: #{display.code_colors(self.secret_code)}"
+    "\nYOU LOSE, SECRET CODE: #{display.code_colors(self.secret_code)}"
   end
 
   def exact

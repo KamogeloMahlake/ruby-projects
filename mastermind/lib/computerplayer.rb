@@ -13,6 +13,7 @@ class ComputerPlayer
     end
     secret_code
   end
+  
   def codebreaker(previous_guess, feedback)
     @previous_guess.unshift(previous_guess)
 
@@ -51,7 +52,6 @@ class ComputerPlayer
         secret_code = []
       end
     end
-    print "\n pre: #{@previous_guess}"
     secret_code
   end
 end
