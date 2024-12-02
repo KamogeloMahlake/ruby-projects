@@ -21,7 +21,7 @@ def play_game(human_letter, computer_letter)
   computer = ComputerPlayer.new(computer_letter)
   puts game
   letter = 'X'
-  while game.available_moves.length > 0
+  while game.available_moves.length.positive?
     if human_letter == letter
       player_move = human.get_move(game.available_moves)
       game.make_move(player_move, human_letter)

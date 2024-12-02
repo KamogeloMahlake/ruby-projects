@@ -1,26 +1,26 @@
+# frozen_string_literal: true
+
 def caesar_cipher(string, number)
-  alphabet = "abcdefghijklmnopqrstuvwxyz".split("")
-  string = string.split("")
-  output = ""
+  alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
+  string = string.split('')
+  output = ''
 
   string.each do |item|
     if alphabet.include?(item.downcase)
       index = alphabet.find_index(item.downcase) + number
 
-      if index > 25
-        index -= 26
-      end
-      if item == item.upcase 
-        output += alphabet[index].upcase
-      else
-        output += alphabet[index]
-      end
+      index -= 26 if index > 25
+      output += if item == item.upcase
+                  alphabet[index].upcase
+                else
+                  alphabet[index]
+                end
     else
       output += item
     end
   end
-  
-  return output
+
+  output
 end
 
-puts caesar_cipher("What a string!", 5)
+puts caesar_cipher('What a string!', 5)

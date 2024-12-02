@@ -1,16 +1,15 @@
-def substrings(string, dictionary)
-  string = string.downcase.split(" ")
+# frozen_string_literal: true
 
-  dictionary.reduce(Hash.new(0)) do |hash, value|
-    string.each do|item| 
-      if item.include?(value)
-        hash[value] += 1
-      end
-    end 
-    hash
+def substrings(string, dictionary)
+  string = string.downcase.split(' ')
+
+  dictionary.each_with_object(Hash.new(0)) do |value, hash|
+    string.each do |item|
+      hash[value] += 1 if item.include?(value)
+    end
   end
 end
 
-dictionary = ["below","down","go","going","horn","how","howdy","it","i","low","own","part","partner","sit"]
-puts substrings("below", dictionary)
+dictionary = %w[below down go going horn how howdy it i low own part partner sit]
+puts substrings('below', dictionary)
 puts substrings("Howdy partner, sit down! How's it going?", dictionary)
