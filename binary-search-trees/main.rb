@@ -1,6 +1,24 @@
+# frozen_string_literal: true
+
 require_relative 'lib/node'
 require_relative 'lib/tree'
 
-tree = Tree.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
-tree.pretty_print
-p tree.postorder
+array = Array.new(15) { rand(1..100) }
+
+tree = Tree.new(array)
+puts tree.balanced?
+puts "Level order: #{tree.level_order}"
+puts "Inorder: #{tree.inorder}"
+puts "Pre order: #{tree.preorder}"
+puts "Post order: #{tree.postorder}"
+
+10.times do
+  tree.insert(rand(1..100))
+end
+puts tree.balanced?
+tree.rebalanced!
+puts tree.balanced?
+puts "Level order: #{tree.level_order}"
+puts "Inorder: #{tree.inorder}"
+puts "Pre order: #{tree.preorder}"
+puts "Post order: #{tree.postorder}"
