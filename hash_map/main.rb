@@ -21,4 +21,5 @@ test.set('lion', 'golden')
 
 test.set('moon', 'silver')
 test.set('lion', 'gold')
+
 puts test.hashmap_display

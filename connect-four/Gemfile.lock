@@ -1,0 +1,26 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (1.1.0)
+    language_server-protocol (3.17.0.3)
+    logger (1.6.4)
+    prism (1.2.0)
+    rbs (3.7.0)
+      logger
+    ruby-lsp (0.22.1)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 4)
+      sorbet-runtime (>= 0.5.10782)
+    sorbet-runtime (0.5.11704)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  colorize (~> 1.1)
+  ruby-lsp (~> 0.22.1)
+
+BUNDLED WITH
+   2.5.23

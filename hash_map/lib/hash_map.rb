@@ -24,7 +24,7 @@ class HashMap
       index_of_key = @buckets[index].find(key)
       @buckets[index].at(index_of_key).value = value
     else
-      @buckets[index].append(key, value)
+      @buckets[index].prepend(key, value)
       @size += 1
     end
   end
