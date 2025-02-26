@@ -1,1 +1,3 @@
-# ruby-projects
+# Ruby Projects
+
+This repository contains various Ruby projects and exercises. 
